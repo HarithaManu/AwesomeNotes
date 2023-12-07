@@ -1,4 +1,11 @@
 <!-- edit_note.php -->
+<html>
+    <head>
+        <style>
+        
+        </style>
+    </head>
+</html>
 <?php
 
 // Ensure this file handles only POST requests
@@ -7,7 +14,7 @@
     //$title = htmlspecialchars($_POST["title"]);
     //$content = htmlspecialchars($_POST["content"]);
 
-    // TODO: Update the note in the database
+    //  Update the note in the database
 
 // Connect to the database
     $connection = new mysqli("localhost", "root", "", "note_taking_db");

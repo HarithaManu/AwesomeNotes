@@ -1,4 +1,4 @@
-<!-- index.php -->
+<!-- home.php -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,6 +107,8 @@
                 if ($connection->connect_error) {
                     die("Connection failed: " . $connection->connect_error);
                 }
+
+                
 
                 // Fetch notes from the database
                 $query = "SELECT id, title, created_at FROM notes ORDER BY created_at DESC";
