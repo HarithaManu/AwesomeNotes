@@ -1,10 +1,16 @@
 <!-- view_note.php -->
+<?php
+    require_once('config.php');
+    require_once('class/controller.class.php');   
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Note Details</title>
+    
 </head>
 <body>
+
     <?php
     // Connect to the database
     $connection = new mysqli("localhost", "root", "", "note_taking_db");

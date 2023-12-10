@@ -3,9 +3,21 @@
     <head>
         <style>
         
-        </style>
+        /* Add CSS for the background image */
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            text-align: center;
+        }
+    </style>
+        
     </head>
-</html>
+<body>
 <?php
 
 // Ensure this file handles only POST requests
@@ -38,9 +50,11 @@
         $content = $row["content"];
         
         echo '<form method="POST">
-                <input type ="text" name="title" value ="'. $row["title"] .'"><br/>
-                <textarea name="content" rows ="10"> '. $row["content"] .'</textarea>
+            <li><a href="view_note.php?id=' . $row["id"] . '">' . $row["title"] . '</a></li>
+            <input type ="text" name="title" style ="width:250px;" value ="'. $row["title"] .'"><br/>
+                <textarea name="content" rows ="30" cols = "40"> '. $row["content"] .'</textarea>
                 <input type ="submit" value = "Update">
+                
                 
             </form>';
 
@@ -77,3 +91,5 @@
 }
 // } 
 ?>
+</body>
+</html>

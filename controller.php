@@ -4,7 +4,7 @@
     if(isset($_GET["code"])){
         $token = $gClient->fetchAccessTokenWithAuthCode($_GET["code"]);
     }else{
-        header('Location:test1.php');
+        header('Location:login.php');
         exit();
     }
 
@@ -21,10 +21,10 @@
             
         ));
 
-      // var_dump($userData);
+      //var_dump($userData);
        
     }else{
-        header('Location:test1.php');
+        header('Location:login.php');
         exit();
     }
 ?>

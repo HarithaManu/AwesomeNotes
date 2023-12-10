@@ -1,4 +1,10 @@
 <!-- home.php -->
+<?php
+    require_once('config.php');
+    require_once('class/controller.class.php');
+    
+    
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +93,30 @@
     <!-- Content section -->
     <div class="container">
         <div class="header">
+        <?php 
+        if (isset($_COOKIE["g_id"]) && isset($_COOKIE["sess"])){
+            $loginID = $_COOKIE["g_id"];
+            $session = $_COOKIE["sess"];
+            //$f_name = $userInfo['f_name'];
+            $Controller = new Controller;
+            //$userInfo = $Controller -> getUserInfo($loginID);
+            //$f_name = isset($userInfo['f_name']) ? $userInfo['f_name'] : '';
+            if($Controller -> checkUserStatus($_COOKIE["g_id"],$_COOKIE["sess"])){
+                //$loginID = $_COOKIE["g_id"];
+               echo '<a href = "logout.php"> LOG OUT</a>';
+            }else{
+                echo "Error while logging in";
+            }
+        }else{
+            echo "No cookie";
+        }
+        if (isset($_COOKIE["g_id"]) && isset($_COOKIE["sess"])){
+            
+        }
+
+
+          //echo '<h3>Welcome ' .$insertUser["g_id"] . '</h3' ;
+        ?>
             <h1>Your awesome notes find a home here!</h1>
         </div>
         <div class="form">
@@ -100,6 +130,7 @@
             <h2>My Notes</h2>
             <ul>
                 <?php
+                 
                 // Connect to the database
                 $connection = new mysqli("localhost", "root", "", "note_taking_db");
 
@@ -108,16 +139,20 @@
                     die("Connection failed: " . $connection->connect_error);
                 }
 
+                //check if user is logged in
+               // function checkUserStatus()
+
                 
 
                 // Fetch notes from the database
-                $query = "SELECT id, title, created_at FROM notes ORDER BY created_at DESC";
+                $query = "SELECT id, title, created_at, g_id FROM notes WHERE g_id = $loginID";
                 $result = $connection->query($query);
 
                 // Display notes
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo '<li><a href="view_note.php?id=' . $row["id"] . '">' . $row["title"] . '</a></li>';
+                        echo "Created on ", $row["created_at"];
                         
                     }
                 } else {
