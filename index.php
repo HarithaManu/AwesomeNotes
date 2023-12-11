@@ -1,169 +1,107 @@
-<!-- home.php -->
 <?php
     require_once('config.php');
-    require_once('class/controller.class.php');
-    
-    
+    //require_once('core/controller.class.php');
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>A Note-Taking tool</title>
-   <!-- <script src="particles.js"></script> -->
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="514667753745-t966cgb2kcib0ifik0f1ldkkuahi4869.apps.googleusercontent.com">
+    <title>Login Page</title>
+    
     <style>
-        /* ... existing styles ... */
-        body{
-            background-image: url('LUT\ campus.jpg');
-            background-position: center;
+        /* Add CSS for the background image */
+        body {
+            background-image: url('bg.png');
             background-size: cover;
-        }
-        .container {
-            
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        .header {
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             text-align: center;
-            margin-bottom: 30px;
+        }
+       .overlay {
+            width: 400px;
+            height: auto;
+            position : absolute;
+            top: 25%;
+            left : 49%;
+            transform: translate(-52%, -52%);
+        } 
+
+        /* Add CSS for the login form */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20%;
+        }
+        .g-signin {
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 300px;
+            margin: auto;
+            
         }
 
-        .form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .form input[type="text"],
-        .form textarea {
+        /* Add CSS for form elements */
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin: 10px 0;
+            border: none;
+            border-bottom: 1px solid #333;
+            background: transparent;
+            outline: none;
         }
 
-        .form input[type="submit"] {
-            background-color: #4CAF50; 
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333333;
             color: #fff;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
-            padding: 10px 20px;
-            border-radius: 5px;
-            width: 100%;
         }
 
-        .form input[type="submit"]:hover {
-            background-color: #4CAF50;
-        }
-
-        .notes {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .notes li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
+        input[type="submit"]:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
-    <!-- Particle animation container -->
-    <div id="particles-js"></div>
 
-    <!-- Particle animation configuration -->
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                // ... particle configuration ...
-            },
-            interactivity: {
-                // ... interactivity configuration ...
-            },
-            retina_detect: true
-        });
-    </script>
-
-    <!-- Content section -->
-    <div class="container">
-        <div class="header">
-        <?php 
-        if (isset($_COOKIE["g_id"]) && isset($_COOKIE["sess"])){
-            $loginID = $_COOKIE["g_id"];
-            $session = $_COOKIE["sess"];
-            //$f_name = $userInfo['f_name'];
-            $Controller = new Controller;
-            //$userInfo = $Controller -> getUserInfo($loginID);
-            //$f_name = isset($userInfo['f_name']) ? $userInfo['f_name'] : '';
-            if($Controller -> checkUserStatus($_COOKIE["g_id"],$_COOKIE["sess"])){
-                //$loginID = $_COOKIE["g_id"];
-               echo '<a href = "logout.php"> LOG OUT</a>';
-            }else{
-                echo "Error while logging in";
-            }
-        }else{
-            echo "No cookie";
-        }
-        if (isset($_COOKIE["g_id"]) && isset($_COOKIE["sess"])){
+    <div class = "overlay">
+    <div class="login-container">
+    <h1>Awesome Notes</h1>
+      
+        <form method="post">
+            <input type="text" name="uname" placeholder="Username" required>
+            <input type="password" name="pwd" placeholder="Password" required>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="button" onclick="window.location = '<?php echo $login_url; ?>' ">Sign-in with Google</button>
             
-        }
+            
+        </form>
 
-
-          //echo '<h3>Welcome ' .$insertUser["g_id"] . '</h3' ;
-        ?>
-            <h1>Your awesome notes find a home here!</h1>
-        </div>
-        <div class="form">
-            <form action="add_note.php" method="post">
-                <input type="text" name="title" placeholder="Note Title" required>
-                <textarea name="content" placeholder="Note Content" rows="6" required></textarea>
-                <input type="submit" value="Save Note">
-            </form>
-        </div>
-        <div class="notes">
-            <h2>My Notes</h2>
-            <ul>
-                <?php
-                 
-                // Connect to the database
-                $connection = new mysqli("localhost", "root", "", "note_taking_db");
-
-                // Check connection
-                if ($connection->connect_error) {
-                    die("Connection failed: " . $connection->connect_error);
-                }
-
-                //check if user is logged in
-               // function checkUserStatus()
-
-                
-
-                // Fetch notes from the database
-                $query = "SELECT id, title, created_at, g_id FROM notes WHERE g_id = $loginID";
-                $result = $connection->query($query);
-
-                // Display notes
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<li><a href="view_note.php?id=' . $row["id"] . '">' . $row["title"] . '</a></li>';
-                        echo "Created on ", $row["created_at"];
-                        
-                    }
-                } else {
-                    echo "<li>No notes found.</li>";
-                }
-
-                // Close the database connection
-                $connection->close();
-                ?>
-            </ul>
-        </div>
     </div>
+    <script>
+
+
+   
+    
+    
+
+
+
+
+</script>
 </body>
 </html>
+
