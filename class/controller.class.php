@@ -65,7 +65,7 @@
             if($insertUser){ //set cookies
                 setcookie("g_id", $db->lastInsertId(), time()+60*60*24*30, "/", NULL);
                 setcookie("sess",$session, time()+60*60*24*30, "/", NULL);
-                header('Location: index.php');
+                header('Location: home.php');
                 exit();
             }else{
                 return "Error while inserting user details";
@@ -73,7 +73,7 @@
         }else{  //set cookies 
             setcookie("g_id",$info["g_id"],time()+60*60*24*30,"/",NULL);
             setcookie("sess",$info["session"],time()+60*60*24*30,"/",NULL);
-            header('Location: index.php');
+            header('Location: home.php');
             exit();
         }
 
