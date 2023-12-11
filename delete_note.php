@@ -49,8 +49,8 @@
         echo "Note not found.";
     }
 
-    // Redirect back to the index.php after deletion
-    //header("Location: index.php");
+    // Redirect back to the home.php after deletion
+    //header("Location: home.php");
     //exit;
 }
 ?>

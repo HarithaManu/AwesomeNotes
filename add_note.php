@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        // Redirect back to the index.php after successful insertion
-        header("Location: index.php");
+        // Redirect back to the home.php after successful insertion
+        header("Location: home.php");
         exit;
     } else {
         echo "Error: " . $query . "<br>" . $stmt->error;
